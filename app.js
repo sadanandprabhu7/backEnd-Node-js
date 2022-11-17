@@ -1,17 +1,22 @@
 
 const express=require('express')
+const bodyParser=require('body-parser')
 
 const app=express();
 
-app.use('/',(req,res,next)=>{
-    console.log('this always run')
-    next()
+app.use(bodyParser.urlencoded({extended:false}))
+
+
+app.use('/get-product',(req,res,next)=>{
+    res.send('<form action="/product" method="POST"><lebel>Poduct Name : </lebel><input type="text" name="title"><lebel>Poduct size : </lebel><input type="text" name="size"><button type="submit">submit</button></form>')
+    
+    
 })
 
-app.use('/getProduct',(req,res,next)=>{
-    res.send('<h1>add product express</h1>')
-    
-    
+app.use('/product',(req,res,next)=>{
+    console.log(req.body)
+    //console.log('hello')
+    res.redirect('/')
 })
 
 app.use('/',(req,res,next)=>{
